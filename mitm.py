@@ -12,9 +12,10 @@ from crypto_protocol import CryptoProtocol
 
 
 def usage():
-    print "Usage:"
-    print "    " + sys.argv[0] + " server_ip server_port client_port"
+    print("Usage:")
+    print("    " + sys.argv[0] + " server_ip server_port client_port")
     sys.exit()
+
 
 if len(sys.argv) != 4:
     usage()
@@ -25,6 +26,7 @@ def get_line(conn):
     while line is None:
         line = conn.recv()
     return line
+
 
 server_ip = sys.argv[1]
 server_port = int(sys.argv[2])
@@ -40,13 +42,13 @@ crypto_protocol_client = None
 try:
     conn_client.listen(client_port)
 except:
-    print "Unable to open port %d" % client_port
+    print("Unable to open port %d" % client_port)
     sys.exit()
 
 try:
     conn_server.connect(server_ip, server_port)
 except:
-    print "Unable to connect to %s at port %d" % (server_ip, server_port)
+    print("Unable to connect to %s at port %d" % (server_ip, server_port))
 
 # Key exchange: Later can be added some other variants too.#######
 
@@ -81,6 +83,7 @@ class GUIThread (threading.Thread):
         import gui
         gui.start(True)
 
+
 GUIThread().start()
 
 
@@ -95,6 +98,7 @@ def session(conn_receive, cp_receive, conn_send, cp_send, name):
                 conn_send.send(cp_send.encrypt(line))
         else:
             break
+
 
 t = threading.Thread(target=session, args=(
     conn_server, crypto_protocol_server, conn_client, crypto_protocol_client, "server"))

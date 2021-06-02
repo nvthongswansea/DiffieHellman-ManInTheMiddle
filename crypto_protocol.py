@@ -68,7 +68,7 @@ def AES_128_CBC_encrypt(data, key, iv):
 
 def AES_128_CBC_decrypt(data, key, iv):
     if len(data) % 16 != 0:
-        print "Invalid size of data %s (len = %d)" % (repr(data), len(data))
+        print("Invalid size of data %s (len = %d)" % (repr(data), len(data)))
         return ''
     block_count = len(data) / 16
     decrypted_data = ''
@@ -98,10 +98,11 @@ class CryptoProtocol:
     def decrypt(self, data):
         return AES_128_CBC_decrypt(data, self.AES_key, self.AES_iv)
 
+
 if __name__ == '__main__':
     text = 'abcdefghijklmnopqrstuvwxyz!'
     key = 'abcdef1234567890'
 
     c = CryptoProtocol(key)
     assert(c.decrypt(c.encrypt(text)) == text)
-    print "[+] CBC decrypt(encrypt(text))==text test passed"
+    print("[+] CBC decrypt(encrypt(text))==text test passed")
